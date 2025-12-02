@@ -27,5 +27,13 @@ export const BreakingBadApp = async (element) => {
         element.replaceChildren(quoteLabel, authorLabel, nextQuoteButton);
     }
 
+    nextQuoteButton.addEventListener('click', async (event) => {
+        nextQuoteButton.disabled = true;
+        element.innerHTML = 'Loading...';
+        const data = await fetchQuote();
+        renderQuote(data);
+        nextQuoteButton.disabled = false;
+    });
+
     fetchQuote().then(renderQuote);
 }
