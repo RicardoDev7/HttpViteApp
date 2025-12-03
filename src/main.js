@@ -17,4 +17,5 @@ document.querySelector('#app').innerHTML = `
 `;
 
 const element = document.getElementById("divCard");
-BreakingBadApp(element);
+
+/*BreakingBadApp(element);*/
