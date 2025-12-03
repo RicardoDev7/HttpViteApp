@@ -1,10 +1,12 @@
+import { loadUsersByPage } from "../uses-cases/load-users-page"
+
 const state = {
     currentPage: 0,
     users: [],
 }
 
-const loadNextPage = () => {
-
+const loadNextPage = async () => {
+    await loadUsersByPage(state.currentPage + 1);
 }
 
 const loadPreviousPage = () => {
