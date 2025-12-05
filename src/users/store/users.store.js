@@ -9,8 +9,11 @@ const loadNextPage = async () => {
     await loadUsersByPage(state.currentPage + 1);
 }
 
-const loadPreviousPage = () => {
-
+const loadPreviousPage = async() => {
+    const user = await loadUsersByPage(state.currentPage + 1);
+    if(user.length === 0) return;
+    state.currentPage += 1;
+    state.users = user;
 }
 
 const onUserChanged = () => {
