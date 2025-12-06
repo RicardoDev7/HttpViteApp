@@ -1,4 +1,5 @@
 import { User } from "../models/user"
+import { UserData } from "../models/userData";
 
 /**
  * 
@@ -23,5 +24,26 @@ export const localHostUserToModel = (localHostUser) => {
         firstName: first_name, 
         lastName: last_name, 
         gender
+    });
+}
+
+export const localHostUserDataToModel = (localHostUserData) => {
+    const {
+        data,
+        first,
+        items,
+        last,
+        next,
+        pages,
+        prev
+    } = localHostUserData;
+    return new UserData({
+        data,
+        first,
+        items,
+        last,
+        next,
+        pages,
+        prev
     });
 }
