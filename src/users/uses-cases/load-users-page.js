@@ -8,7 +8,12 @@ import { UserData } from "../models/userData";
  */
 export const loadUsersByPage = async (page = 1) => {
     const url = `${import.meta.env.VITE_BASE_URL}users?_page=${page}`;
-    const res = await fetch(url);
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
     const data = await res.json();
     return localHostUserDataToModel(data);
 }
