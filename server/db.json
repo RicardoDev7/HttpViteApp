@@ -449,18 +449,6 @@
       "first_name": "Mcbride",
       "last_name": "Woodward",
       "gender": "male"
-    },
-    {
-      "id": "019f",
-      "isActive": true,
-      "balance": 7000,
-      "avatar": "rmetzger",
-      "first_name": "Ricardo",
-      "last_name": "Metzger",
-      "gender": "male"
-    },
-    {
-      "id": "411b"
     }
   ]
 }
