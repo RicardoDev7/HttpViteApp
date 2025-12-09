@@ -1,7 +1,10 @@
+import { User } from '../../models/user';
+import { getUserByID } from '../../uses-cases/get-user-by-id';
 import './render-modal.css';
 import modalHTML from './render-modal.html?raw';
 
 let modal, form;
+let loadedUser;
 
 /**
  * 
@@ -40,11 +43,27 @@ export const renderModal = (element, callback) => {
     });
 }
 
-export const showModal = () => {
+export const showModal = async (id) => {
     modal.classList.remove('hide-modal');
+    if(!id) return;
+    const user = await getUserByID(id);
+    console.log(user);
+    setFormValues(user);
 }
 
 export const hideModal = () => {
     modal.classList.add('hide-modal');
     form?.reset();
+}
+
+/**
+ * 
+ * @param {User} user 
+ */
+const setFormValues = (user) => {
+    form.querySelector('[name="firstName"]').value = user.firstName;
+    form.querySelector('[name="lastName"]').value = user.lastName;
+    form.querySelector('[name="balance"]').value = user.balance;
+    form.querySelector('[name="isActive"]').checked = user.isActive;
+    loadedUser = user;
 }
