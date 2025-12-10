@@ -25,8 +25,23 @@ const loadPreviousPage = async() => {
     state.users = users.data.map(localHostUserToModel);
 }
 
-const onUserChanged = () => {
-    
+/**
+ * 
+ * @param {User} user 
+ * @returns 
+ */
+const onUserChanged = async (updatedUser) => {
+    let wasFound = false;
+    state.users = state.users.map(x => {
+        if(x.id === updatedUser.id){
+            wasFound = true;
+            return updatedUser;
+        }
+        return x;
+    });
+    if(state.users.length < 10){
+        state.users.push(updatedUser);
+    }
 }
 
 const reloadPage = () => {

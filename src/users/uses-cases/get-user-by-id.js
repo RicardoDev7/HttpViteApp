@@ -15,6 +15,5 @@ export const getUserByID = async (id) => {
         },
     });
     const data = await res.json();
-    console.log(data);
     return localHostUserToModel(data);
 }

@@ -1,9 +1,11 @@
+import { localHostUserToModel } from "../mappers/localhost-user.mapper";
 import { userModelToLocalhost } from "../mappers/user-to-localhost.mapper";
 import { User } from "../models/user"
 
 /**
  * 
  * @param {Like<User>} userLike 
+ * @returns {Promise<User>}
  */
 export const saveUser = async (userLike) => {
     const user = new User(userLike);
@@ -11,7 +13,8 @@ export const saveUser = async (userLike) => {
         throw new Error('First name and last name are required');
     }
     const userToSave = userModelToLocalhost(user);
-    return user.id ? await updateUser(userToSave) : createUser(userToSave);
+    let userUpdated = user.id ? await updateUser(userToSave) : createUser(userToSave);
+    return localHostUserToModel(userUpdated);
 }
 
 /**
@@ -35,9 +38,9 @@ const createUser = async (user) => {
  * @param {Like<User>} user 
  */
 const updateUser = async (user) => {
-    const url = `${import.meta.env.VITE_BASE_URL}users`;
+    const url = `${import.meta.env.VITE_BASE_URL}users/${user.id}`;
     const res = await fetch(url, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },

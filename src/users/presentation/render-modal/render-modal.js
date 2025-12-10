@@ -26,28 +26,34 @@ export const renderModal = (element, callback) => {
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
         const formData = new FormData(form);
-        const userLike = {};
+        const userLike = { ...loadedUser};
+        console.log(formData);
+        console.log(userLike);
+        let hasValueActive = false;
         for (const [key, value] of formData){
             if(key === 'balance'){
                 userLike[key] = +value;
                 continue;
             }
             if(key === 'isActive'){
+                hasValueActive = true;
                 userLike[key] = value === 'on' ? true : false;
                 continue;
             }
             userLike[key] = value;
         }
+        if(!hasValueActive) userLike['isActive'] = false;
+        userLike.id = loadedUser?.id;
         await callback(userLike);
         hideModal();
     });
 }
 
 export const showModal = async (id) => {
+    loadedUser = {};
     modal.classList.remove('hide-modal');
     if(!id) return;
     const user = await getUserByID(id);
-    console.log(user);
     setFormValues(user);
 }
 
