@@ -13,7 +13,7 @@ export const renderTable = (element) => {
     const users = usersStore.getUsers();
     if(!table) {
         table = createTable();
-        element.appendChild(table);
+        element.append(table);
         table.addEventListener('click', (event) => tableSelecListener(event));
         table.addEventListener('click', (event) => tableDeleteListener(event));
     }
