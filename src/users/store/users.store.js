@@ -44,8 +44,15 @@ const onUserChanged = async (updatedUser) => {
     }
 }
 
-const reloadPage = () => {
-
+const reloadPage = async () => {
+    const users = await loadUsersByPage(state.currentPage);
+    state.currentPage = (users.next) ? users.next - 1 : users.last;
+    if(users.length === 0) {
+        await loadPreviousPage();
+        return;
+    }
+    state.lastPage = users.last;
+    state.users = users.data.map(localHostUserToModel);
 }
 
 export default {
